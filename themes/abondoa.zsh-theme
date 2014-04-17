@@ -90,6 +90,8 @@ PROMPT='%{${fg_bold[yellow]}%}%n%{$reset_color%}%{${fg[yellow]}%}@%m%{$reset_col
 >>>>>>> git more weird symbols added
 RPROMPT='%{$fg_bold[cyan]%}%~%{$reset_color%}'
 
+
+
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}git( %{$fg_bold[red]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg_bold[blue]%} )%{$reset_color%} "
 ZSH_THEME_GIT_PROMPT_DIRTY=""
@@ -180,6 +182,7 @@ ZSH_THEME_SVN_PROMPT_ADDITIONS=$ZSH_THEME_GIT_PROMPT_ADDED
 ZSH_THEME_SVN_PROMPT_UNTRACKED=$ZSH_THEME_GIT_PROMPT_UNTRACKED
 ZSH_THEME_SVN_PROMPT_REPLACEMENTS=$ZSH_THEME_GIT_PROMPT_RENAMED
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> git more weird symbols added
 =======
 >>>>>>> abondoa theme
@@ -187,3 +190,18 @@ ZSH_THEME_SVN_PROMPT_REPLACEMENTS=$ZSH_THEME_GIT_PROMPT_RENAMED
 >>>>>>> my theme and fixed svn fast info
 =======
 >>>>>>> git more weird symbols added
+=======
+
+
+##################
+### TODO
+##################
+# local TERMWIDTH
+# (( TERMWIDTH = ${COLUMNS} - 1 ))
+# local promptsize=
+# local rpromptsize=
+# 
+# if [[ "$promptsize + $rpromptsize" -gt $TERMWIDTH ]]; then
+#   RPROMPT='%{$fg_bold[cyan]%}%p%{$reset_color%}'
+# fi
+>>>>>>> new install
