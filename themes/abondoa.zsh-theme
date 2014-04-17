@@ -3,6 +3,8 @@
 PROMPT='%{${fg_bold[yellow]}%}%n%{$reset_color%}%{${fg[yellow]}%}@%m%{$reset_color%} $(git_prompt_info)$(svn_prompt_info)%(?,,%{${fg_bold[white]}%}[%?]%{$reset_color%} )%{$fg[yellow]%}%#%{$reset_color%} '
 RPROMPT='%{$fg_bold[cyan]%}%~%{$reset_color%}'
 
+
+
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}git( %{$fg_bold[red]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg_bold[blue]%} )%{$reset_color%} "
 ZSH_THEME_GIT_PROMPT_DIRTY=""
@@ -23,3 +25,16 @@ ZSH_THEME_SVN_PROMPT_MODIFICATIONS=$ZSH_THEME_GIT_PROMPT_MODIFIED
 ZSH_THEME_SVN_PROMPT_ADDITIONS=$ZSH_THEME_GIT_PROMPT_ADDED
 ZSH_THEME_SVN_PROMPT_UNTRACKED=$ZSH_THEME_GIT_PROMPT_UNTRACKED
 ZSH_THEME_SVN_PROMPT_REPLACEMENTS=$ZSH_THEME_GIT_PROMPT_RENAMED
+
+
+##################
+### TODO
+##################
+# local TERMWIDTH
+# (( TERMWIDTH = ${COLUMNS} - 1 ))
+# local promptsize=
+# local rpromptsize=
+# 
+# if [[ "$promptsize + $rpromptsize" -gt $TERMWIDTH ]]; then
+#   RPROMPT='%{$fg_bold[cyan]%}%p%{$reset_color%}'
+# fi
