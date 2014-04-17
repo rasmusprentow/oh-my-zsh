@@ -1,7 +1,7 @@
 
 
 PROMPT='%{${fg_bold[yellow]}%}%n%{$reset_color%}%{${fg[yellow]}%}@%m%{$reset_color%} $(git_prompt_info)$(svn_prompt_info)%(?,,%{${fg_bold[white]}%}[%?]%{$reset_color%} )%{$fg[yellow]%}%#%{$reset_color%} '
-RPROMPT='%{$fg_bold[cyan]%}%~%{$reset_color%}'
+RPROMPT='%{$fg_bold[cyan]%}$(right_prompt)%{$reset_color%}'
 
 
 
@@ -29,12 +29,18 @@ ZSH_THEME_SVN_PROMPT_REPLACEMENTS=$ZSH_THEME_GIT_PROMPT_RENAMED
 
 ##################
 ### TODO
-##################
-# local TERMWIDTH
-# (( TERMWIDTH = ${COLUMNS} - 1 ))
-# local promptsize=
-# local rpromptsize=
-# 
-# if [[ "$promptsize + $rpromptsize" -gt $TERMWIDTH ]]; then
-#   RPROMPT='%{$fg_bold[cyan]%}%p%{$reset_color%}'
-# fi
+#################
+function right_prompt()
+{
+    local TERMWIDTH
+    (( TERMWIDTH = ${COLUMNS} - 2 ))
+    local promptsize=${#${(%):---(%n@%m:%l)---()--}}
+    local pwdsize=${#${(%):-%~}}
+    
+
+    if [[ "$promptsize + $pwdsize" -gt $TERMWIDTH ]]; then
+        echo '%c'
+    else
+        echo '%~'
+    fi
+}
