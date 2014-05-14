@@ -4,7 +4,6 @@ RPROMPT='%{$fg_bold[cyan]%}$(right_prompt)%{$reset_color%}'
 
 
 
-
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}git( %{$fg_bold[red]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg_bold[blue]%} )%{$reset_color%} "
 ZSH_THEME_GIT_PROMPT_DIRTY=""
@@ -15,7 +14,6 @@ ZSH_THEME_GIT_PROMPT_DELETED="%{$fg[red]%} ✖"
 ZSH_THEME_GIT_PROMPT_RENAMED="%{$fg[magenta]%} ➜"
 ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[yellow]%} ═"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[cyan]%} ✭"
-
 
 ZSH_THEME_SVN_PROMPT_PREFIX="%{$fg_bold[blue]%}svn( %{$fg_bold[red]%}"
 ZSH_THEME_SVN_PROMPT_SUFFIX="%{$fg_bold[blue]%} )%{$reset_color%} "
