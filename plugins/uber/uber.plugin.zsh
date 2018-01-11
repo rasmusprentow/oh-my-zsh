@@ -1,19 +1,21 @@
 
 alias ad='arc diff'
 alias ult='cn && make lint && gulp test'
-alias adl='arc diff --reviewers lasse,olerass,#si_ui_team'
-alias adh='arc diff HEAD^1 --reviewers lasse,olerass,#si_ui_team'
+alias adl='arc diff --reviewers ,#si_ui_team'
+alias adh='arc diff HEAD^1 --reviewers ,#si_ui_team'
 alias grim='git rebase -i master'
 alias grhs='git reset HEAD^1 --soft'
 alias gaca='git add -A && git commit --amend'
 alias gacan='git add -A && git commit --amend --no-edit'
+
 gcaa() {
   git add -A && git commit -m "$*"
 }
 
 alkb() {
-  FEATURE_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-  arc land $* --keep-branch && gcm && gl && gco $FEATURE_BRANCH && grbm
+    COMMIT=$(git log --format=format:%H master... | tail -n1)
+    FEATURE_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+    arc land $COMMIT --keep-branch && gcm && gl && gco $FEATURE_BRANCH && grbm
 }
 
 gpodb() {
@@ -25,10 +27,52 @@ gpim() {
   gcm && gl && gco $FEATURE_BRANCH && grbm
 }
 
+adc() {
+  if [ -z $* ]; then echo "No ref specified, dumbass!!"; exit 1; fi
+  FEATURE_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+  git push -fu origin $FEATURE_BRANCH && gco $* && adh && gco $FEATURE_BRANCH
+}
+
+adra() {
+  FEATURE_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+  if [ "$FEATURE_BRANCH" -eq "master" ]; then echo "Don't use this command on master!"; exit 1; fi
+  git push -fu origin $FEATURE_BRANCH
+  COMMITS=$(git log --format=format:%H master...)
+  while read -r ref
+  do
+    git checkout $ref
+    arc diff HEAD^1 -m 'rebase'
+  done<<<$COMMITS
+  git checkout $FEATURE_BRANCH
+}
+
 alias uui='cd ~/projects/udeploy-ui'
 alias uua='cd ~/projects/udeploy-aggregator'
 
 alias gdelpush='gpodb && gpsup'
-  
 alias ucmds='vim ~/.oh-my-zsh/plugins/uber/uber.plugin.zsh'
+alias afix='gacan && adh -m "fix"'
+alias aaddr='gacan && adh -m "addressed comments"'
+
+alias nureg='npm config set registry https://unpm.uberinternal.com/'
+alias ndreg='npm config set registry https://registry.npmjs.org/'
+
+
+bootui() {
+  set -eux pipefail
+  uui
+  cn
+  ussh
+  make serve > /dev/null 2>&1 &
+  gulp dev > /dev/null 2>&1 &
+  make dartium-open
+  make nginx-setup
+  make nginx-start
+  while true; do 
+    make aggregator-prod-tunnel
+  done
+
+}
+
 #export DARTIUM_EXPIRATION_TIME=1577836800
+
