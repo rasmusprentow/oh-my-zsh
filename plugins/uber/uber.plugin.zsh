@@ -15,7 +15,7 @@ gcaa() {
 alkb() {
     COMMIT=$(git log --format=format:%H master... | tail -n1)
     FEATURE_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-    arc land $COMMIT --keep-branch && gcm && gl && gco $FEATURE_BRANCH && grbm
+    arc land $COMMIT --keep-branch --onto master && gcm && gl && gco $FEATURE_BRANCH && grbm
 }
 
 gpodb() {
@@ -41,25 +41,38 @@ adra() {
   while read -r ref
   do
     git checkout $ref
-    arc diff HEAD^1 -m 'rebase'
+    arc diff HEAD^1 -m 'rebase' --nolint --excuse 'Automated run on stacked diff, linting is too slow'
   done<<<$COMMITS
   git checkout $FEATURE_BRANCH
 }
 
-alias uui='cd ~/projects/udeploy-ui'
-alias uua='cd ~/projects/udeploy-aggregator'
+alias uui='cd ~/projects/udeploy-ui; cn'
+alias uua='cd ~/projects/udeploy-aggregator; cn'
+alias uod='cd ~/projects/odin-frontend; cn'
+alias upe='cd ~/projects/web-peloton; cn'
+alias udc='cd ~/projects/developer-console; cn'
 
 alias gdelpush='gpodb && gpsup'
 alias ucmds='vim ~/.oh-my-zsh/plugins/uber/uber.plugin.zsh'
 alias afix='gacan && adh -m "fix"'
 alias aaddr='gacan && adh -m "addressed comments"'
+alias areb='adh -m "rebase"'
 
 alias nureg='npm config set registry https://unpm.uberinternal.com/'
 alias ndreg='npm config set registry https://registry.npmjs.org/'
 
+stopprojects() {
+  killall make
+  killall npm 
+  killall node
+  killall cerberus
+  killall gulp
 
+
+}
 bootui() {
-  set -eux pipefail
+  #set -eux 
+  stopprojects
   uui
   cn
   ussh
@@ -74,5 +87,5 @@ bootui() {
 
 }
 
-#export DARTIUM_EXPIRATION_TIME=1577836800
-
+export DARTIUM_EXPIRATION_TIME=1577836800
+export PATH="$PATH":"~/.pub-cache/bin"
