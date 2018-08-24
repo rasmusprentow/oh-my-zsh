@@ -15,7 +15,7 @@ gcaa() {
 alkb() {
     COMMIT=$(git log --format=format:%H master... | tail -n1)
     FEATURE_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-    arc land $COMMIT --keep-branch --onto master && gcm && gl && gco $FEATURE_BRANCH && grbm
+    arc land $COMMIT --keep-branch --onto master && git checkout master && git pull && git checkout $FEATURE_BRANCH && git rebase master
 }
 
 gpodb() {
@@ -24,18 +24,13 @@ gpodb() {
 
 gpim() {
   FEATURE_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-  gcm && gl && gco $FEATURE_BRANCH && grbm
+  git checkout master  && git pull && git checkout $FEATURE_BRANCH && git rebase master
 }
 
-adc() {
-  if [ -z $* ]; then echo "No ref specified, dumbass!!"; exit 1; fi
-  FEATURE_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-  git push -fu origin $FEATURE_BRANCH && gco $* && adh && gco $FEATURE_BRANCH
-}
 
 adra() {
   FEATURE_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-  if [ "$FEATURE_BRANCH" -eq "master" ]; then echo "Don't use this command on master!"; exit 1; fi
+  if [ "$FEATURE_BRANCH" =  "master" ]; then echo "Don't use this command on master!"; exit 1; fi
   git push -fu origin $FEATURE_BRANCH
   COMMITS=$(git log --format=format:%H master...)
   while read -r ref
